@@ -2,7 +2,7 @@
 
 SecSec 是一个简单的安全论坛本地保存工具，可以将安全论坛的帖子保存到本地，方便查看和搜索。
 
-[screenshot](https://cdn.nlark.com/yuque/0/2024/png/34866087/1722409450054-f79787bf-60db-48b5-a73e-2ae013f8317b.png)
+![screenshot](https://cdn.nlark.com/yuque/0/2024/png/34866087/1722409450054-f79787bf-60db-48b5-a73e-2ae013f8317b.png)
 
 ## 开发原因
 
