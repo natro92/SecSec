@@ -39,7 +39,6 @@ def run_freebuf_crawler():
     chrome_options.add_argument('--ignore-certificate-errors')
     driver = webdriver.Chrome(service=Service(os.path.join(DRIVER_PATH)), options=chrome_options)
 
-    base_url = r'https://www.freebuf.com/articles/{category}/{post_index}.html'
     page_base_url = r'https://www.freebuf.com/fapi/frontend/category/list?name={category}&tag=category&limit=20&page={category_page}&select=0&order=0'
     next_category = False
 
@@ -50,6 +49,10 @@ def run_freebuf_crawler():
         print('[*] Error - 未配置 FreeBuf 初始页数，请检查 config.py 文件')
         exit(1)
     for category in FREEBUF_CATEGORY:
+        if category == 'web':
+            base_url = r'https://www.freebuf.com/articles/{category}/{post_index}.html'
+        elif category == 'vuls':
+            base_url = r'https://www.freebuf.com/{category}/{post_index}.html'
         # 29
         for category_page in range(FREEBUF_PAGE_START, 888):
             try:

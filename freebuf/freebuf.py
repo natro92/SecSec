@@ -122,7 +122,11 @@ def process_post(category, post, driver):
     :param post: 文章数据
     :param driver: 浏览器驱动
     """
-    base_url = r'https://www.freebuf.com/articles/{category}/{post_index}.html'
+
+    if category == 'web':
+        base_url = r'https://www.freebuf.com/articles/{category}/{post_index}.html'
+    elif category == 'vuls':
+        base_url = r'https://www.freebuf.com/{category}/{post_index}.html'
     post_index = post['ID']
     post_title = post['post_title']
     post_is_paid = post['paid_read']
@@ -179,7 +183,11 @@ def process_post_reload(category, post_index, post_title, driver):
     :param driver: 驱动
     :return:
     """
-    base_url = r'https://www.freebuf.com/articles/{category}/{post_index}.html'
+
+    if category == 'web':
+        base_url = r'https://www.freebuf.com/articles/{category}/{post_index}.html'
+    elif category == 'vuls':
+        base_url = r'https://www.freebuf.com/{category}/{post_index}.html'
     filename = os.path.join(FILE_SAVE_PATH, 'freebuf',
                             post_index + "-" + filename_filter(post_title) + '.md')
     post_url = base_url.format(category=category, post_index=post_index)

@@ -16,6 +16,7 @@ import time
 from colorama import init, Fore
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 import markdownify
 from bs4 import BeautifulSoup
 import os
@@ -108,6 +109,9 @@ def process_post(driver):
         filename = os.path.join(FILE_SAVE_PATH, 'xianzhi', f'{post_index}-{post_title}.md')
         if not post_title or ('400 -' in post_title):
             tqdm.write(Fore.RED + f'[!] Error - {post_index} 未找到该文章' + Fore.RESET)
+            if XIANZHI_400_SLEEP:
+                actual_sleep_time = SLEEP_TIME + random.uniform(-SLEEP_TIME_DELTA, SLEEP_TIME_DELTA)
+                time.sleep(actual_sleep_time)
             continue
         if os.path.exists(filename):
             tqdm.write(f'[*] Info - {post_index}-{post_title} 已经爬取过，跳过')
@@ -162,13 +166,22 @@ def run_xianzhi_crawler():
     运行先知爬虫
     :return:
     """
-    init(autoreset=True)
-    chrome_options = webdriver.ChromeOptions()
     # ! 一行配置绕过阿里云机器人验证手动失效，webdriver和普通浏览器参数不同。
     # https://blog.csdn.net/weixin_45081575/article/details/126585575
-    chrome_options.add_argument("disable-blink-features=AutomationControlled")
-    chrome_options.add_argument('--ignore-certificate-errors')
-    driver = webdriver.Chrome(service=Service(DRIVER_PATH), options=chrome_options)
+    # * 创建本机chrome实例，并使用调试模式
+    os.popen('start chrome --remote-debugging-port=9527')
+    options = Options()
+    options.add_argument("disable-blink-features=AutomationControlled")
+    options.add_argument('--ignore-certificate-errors')
+    options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
+    driver = webdriver.Chrome(options=options)
+
+    # init(autoreset=True)
+    # chrome_options = webdriver.ChromeOptions()
+
+    # chrome_options.add_argument("disable-blink-features=AutomationControlled")
+    # chrome_options.add_argument('--ignore-certificate-errors')
+    # driver = webdriver.Chrome(service=Service(DRIVER_PATH), options=chrome_options)
 
     if not XIANZHI_PAGE_START or not XIANZHI_PAGE_END:
         tqdm.write(f'{Fore.RED}[!] Error - 请先在config.py中设置开始页和结束页')

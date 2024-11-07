@@ -29,11 +29,12 @@ THREADS_NUM = 4
 # * 爬虫设置
 # ? FreeBuf 爬虫设置 -----
 # FreeBuf 分类
-FREEBUF_CATEGORY = ['web']
+# FREEBUF_CATEGORY = ['web']
+FREEBUF_CATEGORY = ['vuls']
 # 设置默认开始页
-FREEBUF_PAGE_START = 1
+FREEBUF_PAGE_START = 69
 # 设置默认结束页面
-FREEBUF_PAGE_END = 308
+FREEBUF_PAGE_END = 169
 # FREEBUF_CATEGORY = []
 # 图片黑名单
 FREEBUF_PIC_BLACKLIST = [
@@ -42,14 +43,16 @@ FREEBUF_PIC_BLACKLIST = [
 # ? 先知爬虫设置 -----
 # 先知的反爬很恶心，会让你滑动解锁。
 # 设置默认开始页
-XIANZHI_PAGE_START = 1
+XIANZHI_PAGE_START = 15909
 # 设置默认结束页面
-XIANZHI_PAGE_END = 15070
+XIANZHI_PAGE_END = 16200
 # 图片黑名单，不让其重复下载浪费时间
 XIANZHI_PIC_BLACKLIST = [
     "default_avatar.png",
     '/avatars/'
 ]
+# 设置是否需要 400 错误睡眠
+XIANZHI_400_SLEEP = False
 # ? 补天爬虫设置 -----
 # butian 分类
 # BUTIAN_CATEGORY = ['article', 'share']
